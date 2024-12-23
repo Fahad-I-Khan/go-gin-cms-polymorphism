@@ -1,0 +1,226 @@
+definitions:
+  main.Article:
+    properties:
+      comments:
+        items:
+          $ref: '#/definitions/main.Comment'
+        type: array
+      content:
+        type: string
+      createdAt:
+        description: In Postman it failed to set value and because of this ID, Taggable,
+          Commentable also failed when it was set to string type.
+        type: string
+      id:
+        type: integer
+      tags:
+        items:
+          $ref: '#/definitions/main.Tag'
+        type: array
+      title:
+        type: string
+      updatedAt:
+        description: In Postman it failed to set value and because of this ID, Taggable,
+          Commentable also failed when it was set to string type.
+        type: string
+    type: object
+  main.Comment:
+    properties:
+      commentableID:
+        type: integer
+      commentableType:
+        type: string
+      content:
+        type: string
+      createdAt:
+        description: In Postman it failed to set value and because of this ID, Taggable,
+          Commentable also failed when it was set to string type.
+        type: string
+      id:
+        type: integer
+      updatedAt:
+        description: In Postman it failed to set value and because of this ID, Taggable,
+          Commentable also failed when it was set to string type.
+        type: string
+    type: object
+  main.Tag:
+    properties:
+      createdAt:
+        description: In Postman it failed to set value and because of this ID, Taggable,
+          Commentable also failed when it was set to string type.
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      taggableID:
+        type: integer
+      taggableType:
+        type: string
+      updatedAt:
+        description: In Postman it failed to set value and because of this ID, Taggable,
+          Commentable also failed when it was set to string type.
+        type: string
+    type: object
+  main.Video:
+    properties:
+      comments:
+        items:
+          $ref: '#/definitions/main.Comment'
+        type: array
+      createdAt:
+        description: In Postman it failed to set value and because of this ID, Taggable,
+          Commentable also failed when it was set to string type.
+        type: string
+      id:
+        type: integer
+      tags:
+        items:
+          $ref: '#/definitions/main.Tag'
+        type: array
+      title:
+        type: string
+      updatedAt:
+        description: In Postman it failed to set value and because of this ID, Taggable,
+          Commentable also failed when it was set to string type.
+        type: string
+      url:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: support@localhost.com
+    name: API Support
+    url: http://localhost:8000/support   // Local URL for your development environment
+  description: API for managing articles, videos, tags, and comments.
+  title: CMS API
+  version: "1.0"
+paths:
+  /api/v1/articles:
+    get:
+      description: Retrieve a list of all articles, including their tags and comments.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Article'
+            type: array
+      summary: List all articles
+      tags:
+      - Articles
+    post:
+      consumes:
+      - application/json
+      description: Add a new article to the database.
+      parameters:
+      - description: Article Data
+        in: body
+        name: article
+        required: true
+        schema:
+          $ref: '#/definitions/main.Article'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.Article'
+      summary: Create a new article
+      tags:
+      - Articles
+  /api/v1/articles/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Update the details of an article by its ID.
+      parameters:
+      - description: Article ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Article Data
+        in: body
+        name: article
+        required: true
+        schema:
+          $ref: '#/definitions/main.Article'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Article'
+      summary: Update an article
+      tags:
+      - Articles
+  /api/v1/videos:
+    get:
+      description: Retrieve a list of all videos, including their tags and comments.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Video'
+            type: array
+      summary: List all videos
+      tags:
+      - Videos
+    post:
+      consumes:
+      - application/json
+      description: Add a new video to the database.
+      parameters:
+      - description: Video Data
+        in: body
+        name: video
+        required: true
+        schema:
+          $ref: '#/definitions/main.Video'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.Video'
+      summary: Create a new video
+      tags:
+      - Videos
+  /api/v1/videos/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Update the details of a video by its ID.
+      parameters:
+      - description: Video ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Video Data
+        in: body
+        name: video
+        required: true
+        schema:
+          $ref: '#/definitions/main.Video'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Video'
+      summary: Update a video
+      tags:
+      - Videos
+swagger: "2.0"
